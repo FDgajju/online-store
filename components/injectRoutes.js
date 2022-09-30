@@ -1,6 +1,7 @@
 const AppError = require('../utils/AppError');
 const errorHandler = require('../middleware/errorHandler');
 const userRouter = require('./user/router');
+const shopRouter = require('./shop/router');
 
 const injectRoutes = (app) => {
   app.get('/', (req, res, next) => {
@@ -9,6 +10,7 @@ const injectRoutes = (app) => {
 
   // all application routes here ⤵️
   app.use('/user', userRouter);
+  app.use('/shop', shopRouter);
 
   app.get('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server.`, 404));

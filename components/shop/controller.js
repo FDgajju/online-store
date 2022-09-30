@@ -1,7 +1,7 @@
 const AppError = require('../../utils/AppError');
 const { add, readAll, read, modify, remove } = require('./service');
 
-const insertUser = async (req, res, next) => {
+const insertShop = async (req, res, next) => {
   const { body: data } = req;
 
   const result = await add(data);
@@ -13,11 +13,9 @@ const insertUser = async (req, res, next) => {
   });
 };
 
-const readAllUsers = async (req, res, next) => {
+const readAllShops = async (req, res, next) => {
   const filter = {};
-  const populateOptions = [
-    { path: 'shops', select: ['name', 'type', 'isOpen', '-owner'] },
-  ];
+  const populateOptions = [{ path: 'owned_by', select: ['name', 'email'] }];
 
   const result = await readAll(filter, populateOptions);
   if (!result.status) throw new AppError(result.error);
@@ -29,9 +27,11 @@ const readAllUsers = async (req, res, next) => {
   });
 };
 
-const readUser = async (req, res, next) => {
+const readShop = async (req, res, next) => {
   const { id } = req.params;
-  const populateOptions = [{ path: 'shops' }];
+  const populateOptions = [
+    { path: 'owned_by', select: ['-role', 'name', 'email'] },
+  ];
 
   const result = await read(id, populateOptions);
   if (!result.status) throw new AppError(result.error);
@@ -42,7 +42,7 @@ const readUser = async (req, res, next) => {
   });
 };
 
-const modifyUser = async (req, res, next) => {
+const modifyShop = async (req, res, next) => {
   const {
     body: data,
     params: { id },
@@ -57,7 +57,7 @@ const modifyUser = async (req, res, next) => {
   });
 };
 
-const removeUser = async (req, res, next) => {
+const removeShop = async (req, res, next) => {
   const { id } = req.params;
 
   const result = await remove(id);
@@ -69,4 +69,4 @@ const removeUser = async (req, res, next) => {
   });
 };
 
-module.exports = { insertUser, readAllUsers, readUser, modifyUser, removeUser };
+module.exports = { insertShop, readAllShops, readShop, modifyShop, removeShop };
