@@ -1,14 +1,21 @@
 const AppError = require('../../utils/AppError');
+const { encrypt } = require('../../utils/bcrypt');
+const { genJwt } = require('../../utils/jsonwebtoken');
 const { add, readAll, read, modify, remove } = require('./service');
 
 const insertUser = async (req, res, next) => {
   const { body: data } = req;
 
+  data.password = await encrypt(data.password);
+
   const result = await add(data);
   if (!result.status) throw new AppError(result.error);
 
+  const token = genJwt(result.data._id);
+
   res.status(201).send({
     status: 'success',
+    token,
     data: result.data,
   });
 };
@@ -30,10 +37,10 @@ const readAllUsers = async (req, res, next) => {
 };
 
 const readUser = async (req, res, next) => {
-  const { id } = req.params;
+  const { _id } = req.user;
   const populateOptions = [{ path: 'shops' }];
 
-  const result = await read(id, populateOptions);
+  const result = await read(_id, populateOptions);
   if (!result.status) throw new AppError(result.error);
 
   res.status(201).send({
@@ -45,10 +52,15 @@ const readUser = async (req, res, next) => {
 const modifyUser = async (req, res, next) => {
   const {
     body: data,
-    params: { id },
+    user: { _id },
   } = req;
 
-  const result = await modify(id, data);
+  const { password, role } = data;
+
+  if (password || role)
+    throw new AppError('this route is not for updating password', 400);
+
+  const result = await modify(_id, data);
   if (!result.status) throw new AppError(result.error);
 
   res.status(201).send({
@@ -58,9 +70,9 @@ const modifyUser = async (req, res, next) => {
 };
 
 const removeUser = async (req, res, next) => {
-  const { id } = req.params;
+  const { _id } = req.user;
 
-  const result = await remove(id);
+  const result = await remove(_id);
   if (!result.status) throw new AppError(result.error);
 
   res.status(201).send({

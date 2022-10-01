@@ -27,22 +27,31 @@ const readAll = async (filter = {}, populateOptions = []) => {
   }
 };
 
-const modify = async (id, data) => {
+const modify = async (filter, data) => {
   try {
+    if (typeof filter !== 'object' || !Object.keys(filter).length) {
+      return { status: false, error: 'filter object is empty' };
+    }
+
     const result = await Shop.findOneAndUpdate(
-      { _id: id },
+      filter,
       { $set: data },
       { new: true, runValidators: true }
     );
+
     return { status: true, data: result };
   } catch (error) {
     return { status: false, error: error };
   }
 };
 
-const remove = async (id) => {
+const remove = async (filter) => {
   try {
-    const result = await Shop.deleteOne({ _id: id });
+    if (typeof filter !== 'object' || !Object.keys(filter).length) {
+      return { status: false, error: 'filter object is empty' };
+    }
+
+    const result = await Shop.deleteOne(filter);
     return { status: true, data: result };
   } catch (error) {
     return { status: false, error: error };

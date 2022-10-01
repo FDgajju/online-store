@@ -4,7 +4,9 @@ const { add, readAll, read, modify, remove } = require('./service');
 const insertShop = async (req, res, next) => {
   const { body: data } = req;
 
+  data.owner = req.user._id;
   const result = await add(data);
+
   if (!result.status) throw new AppError(result.error);
 
   res.status(201).send({
@@ -46,9 +48,10 @@ const modifyShop = async (req, res, next) => {
   const {
     body: data,
     params: { id },
+    user,
   } = req;
 
-  const result = await modify(id, data);
+  const result = await modify({ _id: id, owner: user._id }, data);
   if (!result.status) throw new AppError(result.error);
 
   res.status(201).send({
@@ -58,9 +61,12 @@ const modifyShop = async (req, res, next) => {
 };
 
 const removeShop = async (req, res, next) => {
-  const { id } = req.params;
+  const {
+    params: { id },
+    user,
+  } = req;
 
-  const result = await remove(id);
+  const result = await remove({ _id: id, owner: user.id });
   if (!result.status) throw new AppError(result.error);
 
   res.status(201).send({

@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { protect } = require('../../middleware/protect');
 const catchHandler = require('../../utils/catchHandler');
 const {
   insertShop,
@@ -10,10 +11,19 @@ const {
 
 const router = Router();
 
-router.post('/', catchHandler(insertShop));
-router.get('/', catchHandler(readAllShops));
+router.post('/', catchHandler(protect), catchHandler(insertShop));
+router.get('/all-shops', catchHandler(readAllShops));
 router.get('/:id', catchHandler(readShop));
-router.patch('/:id', catchHandler(modifyShop));
-router.delete('/:id', catchHandler(removeShop));
+router.patch(
+  '/my-shop/update/:id',
+  catchHandler(protect),
+  catchHandler(modifyShop)
+);
+
+router.delete(
+  '/my-shop/delete/:id',
+  catchHandler(protect),
+  catchHandler(removeShop)
+);
 
 module.exports = router;

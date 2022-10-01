@@ -29,7 +29,7 @@ const userSchema = new Schema(
     role: {
       type: String,
       enum: ['ShopKeeper', 'Admin'],
-      default: 'Admin',
+      default: 'ShopKeeper',
     },
   },
   {
