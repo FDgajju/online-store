@@ -4,6 +4,7 @@ const userRouter = require('./user/router');
 const shopRouter = require('./shop/router');
 const authRouter = require('./user/auth/router');
 const productRouter = require('./product/router');
+const cartRouter = require('./cart/router');
 
 const injectRoutes = (app) => {
   app.get('/', (req, res, next) => {
@@ -15,6 +16,7 @@ const injectRoutes = (app) => {
   app.use('/user', userRouter);
   app.use('/shop', shopRouter);
   app.use('/product', productRouter);
+  app.use('/cart', cartRouter);
 
   app.get('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server.`, 404));

@@ -49,13 +49,6 @@ const remove = async (id) => {
   }
 };
 
-const checkCredentials = async (email) => {
-  try {
-    const result = await User.findOne({ email });
-    return { status: true, data: result };
-  } catch (error) {
-    return { status: false, error: error };
-  }
-};
 
-module.exports = { add, read, readAll, modify, remove, checkCredentials };
+
+module.exports = { add, read, readAll, modify, remove };

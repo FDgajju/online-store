@@ -2,12 +2,14 @@ const AppError = require('../../../utils/AppError');
 const { encrypt, compare } = require('../../../utils/bcrypt.js');
 const filterData = require('../../../utils/filterData');
 const { genJwt } = require('../../../utils/jsonwebtoken');
-const { add, checkCredentials } = require('./../service');
+const { add } = require('./../service');
+const { checkCredentials } = require('./service');
 
 const signUp = async (req, res, next) => {
-  const { body } = req;
+  const { body, params } = req;
   const data = filterData(body, '-d', 'role'); // 2nd arg is required
 
+  data.role = params.type;
   data.password = await encrypt(data.password);
 
   const result = await add(data);

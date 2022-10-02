@@ -19,7 +19,7 @@ const readAllShops = async (req, res, next) => {
   const filter = {};
   const populateOptions = [
     { path: 'owned_by', select: ['name', 'email'] },
-    // { path: 'products', select: 'name' },
+    { path: 'products', select: 'name' },
   ];
 
   const result = await readAll(filter, populateOptions);
