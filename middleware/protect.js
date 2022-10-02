@@ -17,8 +17,10 @@ const protect = async (req, res, next) => {
     );
 
   const decode = decToken(token);
-  console.log(decode);
-  const currentUser = await User.findOne({ _id: decode.id });
+  const currentUser = await User.findOne({ _id: decode.id }).populate({
+    path: 'shops',
+    select: '_id',
+  });
 
   if (!currentUser) {
     throw new AppError('The user belong to this token is no longer exist', 401);

@@ -54,4 +54,11 @@ shopSchema.virtual('owned_by', {
   justOne: true,
 });
 
+shopSchema.virtual('products', {
+  ref: 'Product',
+  localField: '_id',
+  foreignField: 'shop_id',
+  justOne: false,
+});
+
 module.exports = shopSchema;

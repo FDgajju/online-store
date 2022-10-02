@@ -1,12 +1,11 @@
 const AppError = require('../../utils/AppError');
 const { add, readAll, read, modify, remove } = require('./service');
 
-const insertShop = async (req, res, next) => {
-  const { body: data } = req;
+const insertProduct = async (req, res, next) => {
+  const { body: data, user } = req;
 
-  data.owner = req.user._id;
+  data.owner = user._id;
   const result = await add(data);
-
   if (!result.status) throw new AppError(result.error);
 
   res.status(201).send({
@@ -15,12 +14,9 @@ const insertShop = async (req, res, next) => {
   });
 };
 
-const readAllShops = async (req, res, next) => {
+const readAllProducts = async (req, res, next) => {
   const filter = {};
-  const populateOptions = [
-    { path: 'owned_by', select: ['name', 'email'] },
-    // { path: 'products', select: 'name' },
-  ];
+  const populateOptions = [{ path: 'shop', select: ['name'] }];
 
   const result = await readAll(filter, populateOptions);
   if (!result.status) throw new AppError(result.error);
@@ -32,11 +28,9 @@ const readAllShops = async (req, res, next) => {
   });
 };
 
-const readShop = async (req, res, next) => {
+const readProduct = async (req, res, next) => {
   const { id } = req.params;
-  const populateOptions = [
-    { path: 'owned_by', select: ['-role', 'name', 'email'] },
-  ];
+  const populateOptions = [{ path: 'shop', select: ['name'] }];
 
   const result = await read(id, populateOptions);
   if (!result.status) throw new AppError(result.error);
@@ -47,7 +41,7 @@ const readShop = async (req, res, next) => {
   });
 };
 
-const modifyShop = async (req, res, next) => {
+const modifyProduct = async (req, res, next) => {
   const {
     body: data,
     params: { id },
@@ -63,7 +57,7 @@ const modifyShop = async (req, res, next) => {
   });
 };
 
-const removeShop = async (req, res, next) => {
+const removeProduct = async (req, res, next) => {
   const {
     params: { id },
     user,
@@ -78,4 +72,10 @@ const removeShop = async (req, res, next) => {
   });
 };
 
-module.exports = { insertShop, readAllShops, readShop, modifyShop, removeShop };
+module.exports = {
+  insertProduct,
+  readAllProducts,
+  readProduct,
+  modifyProduct,
+  removeProduct,
+};

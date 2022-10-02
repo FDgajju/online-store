@@ -3,6 +3,7 @@ const errorHandler = require('../middleware/errorHandler');
 const userRouter = require('./user/router');
 const shopRouter = require('./shop/router');
 const authRouter = require('./user/auth/router');
+const productRouter = require('./product/router');
 
 const injectRoutes = (app) => {
   app.get('/', (req, res, next) => {
@@ -10,9 +11,10 @@ const injectRoutes = (app) => {
   });
 
   // all application routes here ⤵️
+  app.use('/online-store', authRouter);
   app.use('/user', userRouter);
   app.use('/shop', shopRouter);
-  app.use('/online-store', authRouter);
+  app.use('/product', productRouter);
 
   app.get('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server.`, 404));

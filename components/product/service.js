@@ -1,9 +1,8 @@
-const User = require('../user/model');
-const Shop = require('./model');
+const Product = require('./model');
 
 const add = async (data) => {
   try {
-    const result = await Shop.create(data);
+    const result = await Product.create(data);
     return { status: true, data: result };
   } catch (error) {
     return { status: false, error: error };
@@ -12,7 +11,7 @@ const add = async (data) => {
 
 const read = async (id, populateOptions = []) => {
   try {
-    const result = await Shop.findOne({ _id: id }).populate(populateOptions);
+    const result = await Product.findOne({ _id: id }).populate(populateOptions);
     return { status: true, data: result };
   } catch (error) {
     return { status: false, error: error };
@@ -21,7 +20,7 @@ const read = async (id, populateOptions = []) => {
 
 const readAll = async (filter = {}, populateOptions = []) => {
   try {
-    const results = await Shop.find(filter).populate(populateOptions);
+    const results = await Product.find(filter).populate(populateOptions);
     return { status: true, data: results };
   } catch (error) {
     return { status: false, error: error };
@@ -33,8 +32,8 @@ const modify = async (filter, data) => {
     if (typeof filter !== 'object' || !Object.keys(filter).length) {
       return { status: false, error: 'filter object is empty' };
     }
-
-    const result = await Shop.findOneAndUpdate(
+    
+    const result = await Product.findOneAndUpdate(
       filter,
       { $set: data },
       { new: true, runValidators: true }
@@ -52,7 +51,7 @@ const remove = async (filter) => {
       return { status: false, error: 'filter object is empty' };
     }
 
-    const result = await Shop.deleteOne(filter);
+    const result = await Product.deleteOne(filter);
     return { status: true, data: result };
   } catch (error) {
     return { status: false, error: error };
