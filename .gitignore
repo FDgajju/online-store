@@ -3,5 +3,6 @@ password.txt
 .env
 test/
 note.txt
+test.*
 
 
