@@ -8,6 +8,7 @@ const { checkCredentials } = require('./service');
 const signUp = async (req, res, next) => {
   const { body, params } = req;
   const data = filterData(body, '-d', 'role'); // 2nd arg is required
+  params.type = 'Customer';
 
   data.role = params.type;
   data.password = await encrypt(data.password);

@@ -14,7 +14,7 @@ const router = Router();
 router.post(
   '/',
   catchHandler(protect),
-  restrictedTo('Seller'),
+  catchHandler(restrictedTo('Seller')),
   catchHandler(insertProduct)
 );
 
@@ -24,14 +24,14 @@ router.get('/:id', catchHandler(readProduct));
 router.patch(
   '/update/:id',
   catchHandler(protect),
-  restrictedTo('Seller'),
+  catchHandler(restrictedTo('Seller')),
   catchHandler(modifyProduct)
 );
 
 router.delete(
   '/delete/:id',
   catchHandler(protect),
-  restrictedTo('Seller'),
+  catchHandler(restrictedTo('Seller')),
   catchHandler(removeProduct)
 );
 
