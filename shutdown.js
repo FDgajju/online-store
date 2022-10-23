@@ -1,3 +1,8 @@
+// TODO: add comments
+/**
+ * 
+ * @param {*} server 
+ */
 const handleShutdown = (server) => {
   process.on("uncaughtException", (err) => {
     console.log("Uncaught Exception! Shutting down...");

@@ -1,3 +1,11 @@
+// TODO: add comments
+/**
+ * 
+ * @param {*} data 
+ * @param {*} flag 
+ * @param  {...any} keys 
+ * @returns 
+ */
 const filterData = (data, flag, ...keys) => {
   let result = {};
 

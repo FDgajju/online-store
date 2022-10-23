@@ -1,3 +1,4 @@
+//TODO: Rename this function and add comments 
 class AppError extends Error {
   constructor(error, statusCode) {
     if (typeof error === 'object' && error !== null) {

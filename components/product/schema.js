@@ -15,7 +15,7 @@ const productSchema = new Schema(
     },
 
     image: String,
-
+    // TODO: category should be Array , a shop can have multiple category of product.
     category: {
       type: String,
       required: [true, 'Please provide us the type of your shop.'],
