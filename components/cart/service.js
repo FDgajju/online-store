@@ -1,6 +1,12 @@
 const { aggregateProducts, aggregateCart } = require('./helper');
 const Cart = require('./model');
 
+/**
+ * 
+ * @param {*} user 
+ * @param {*} data 
+ * @returns 
+ */
 const add = async (user, data) => {
   try {
     let cart = await Cart.findOne({ user });
@@ -20,6 +26,12 @@ const add = async (user, data) => {
   }
 };
 
+/**
+ * 
+ * @param {*} user 
+ * @param {*} populateOptions 
+ * @returns 
+ */
 const read = async (user, populateOptions = []) => {
   try {
     console.log(user);
@@ -30,6 +42,11 @@ const read = async (user, populateOptions = []) => {
   }
 };
 
+/**
+ * 
+ * @param {*} user 
+ * @returns 
+ */
 const empty = async (user) => {
   try {
     let cart = await Cart.findOne({ user });
@@ -44,6 +61,12 @@ const empty = async (user) => {
   }
 };
 
+/**
+ * 
+ * @param {*} user 
+ * @param {*} filter 
+ * @returns 
+ */
 const remove = async (user, filter) => {
   try {
     let cart = await Cart.findOne({ user });

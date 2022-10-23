@@ -3,6 +3,12 @@ const { encrypt } = require('../../utils/bcrypt');
 const { genJwt } = require('../../utils/jsonwebtoken');
 const { add, readAll, read, modify, remove } = require('./service');
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const insertUser = async (req, res, next) => {
   const { body: data } = req;
 
@@ -20,6 +26,12 @@ const insertUser = async (req, res, next) => {
   });
 };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const readAllUsers = async (req, res, next) => {
   const filter = {};
   const populateOptions = [
@@ -36,6 +48,12 @@ const readAllUsers = async (req, res, next) => {
   });
 };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const readUser = async (req, res, next) => {
   const { _id } = req.user;
   const populateOptions = [{ path: 'shops' }];
@@ -69,6 +87,12 @@ const modifyUser = async (req, res, next) => {
   });
 };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const removeUser = async (req, res, next) => {
   const { _id } = req.user;
 

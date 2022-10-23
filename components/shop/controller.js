@@ -1,6 +1,12 @@
 const AppError = require('../../utils/AppError');
 const { add, readAll, read, modify, remove } = require('./service');
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const insertShop = async (req, res, next) => {
   const { body: data } = req;
 
@@ -15,6 +21,12 @@ const insertShop = async (req, res, next) => {
   });
 };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const readAllShops = async (req, res, next) => {
   const filter = {};
   const populateOptions = [
@@ -32,6 +44,12 @@ const readAllShops = async (req, res, next) => {
   });
 };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const readShop = async (req, res, next) => {
   const { id } = req.params;
   const populateOptions = [
@@ -47,6 +65,12 @@ const readShop = async (req, res, next) => {
   });
 };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const modifyShop = async (req, res, next) => {
   const {
     body: data,
@@ -63,6 +87,12 @@ const modifyShop = async (req, res, next) => {
   });
 };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const removeShop = async (req, res, next) => {
   const {
     params: { id },

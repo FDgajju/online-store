@@ -1,5 +1,10 @@
 const User = require('./model');
 
+/**
+ * 
+ * @param {*} data 
+ * @returns 
+ */
 const add = async (data) => {
   try {
     const result = await User.create(data);
@@ -9,6 +14,12 @@ const add = async (data) => {
   }
 };
 
+/**
+ * 
+ * @param {*} id 
+ * @param {*} populateOptions 
+ * @returns 
+ */
 const read = async (id, populateOptions = []) => {
   try {
     const result = await User.findOne({ _id: id }).populate(populateOptions);
@@ -18,6 +29,12 @@ const read = async (id, populateOptions = []) => {
   }
 };
 
+/**
+ * 
+ * @param {*} filter 
+ * @param {*} populateOptions 
+ * @returns 
+ */
 const readAll = async (filter = {}, populateOptions = []) => {
   try {
     const results = await User.find(filter).populate(populateOptions);
@@ -27,6 +44,12 @@ const readAll = async (filter = {}, populateOptions = []) => {
   }
 };
 
+/**
+ * 
+ * @param {*} id 
+ * @param {*} data 
+ * @returns 
+ */
 const modify = async (id, data) => {
   try {
     const result = await User.findOneAndUpdate(
@@ -40,6 +63,11 @@ const modify = async (id, data) => {
   }
 };
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 const remove = async (id) => {
   try {
     const result = await User.deleteOne({ _id: id });
