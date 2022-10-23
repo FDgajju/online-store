@@ -2,6 +2,12 @@ const AppError = require('../../utils/AppError');
 const { add, read, empty, remove } = require('./service');
 const productService = require('./../product/service');
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const insertIntoCart = async (req, res, next) => {
   const { body, user } = req;
 
@@ -20,6 +26,12 @@ const insertIntoCart = async (req, res, next) => {
   });
 };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const readCart = async (req, res, next) => {
   const { user } = req;
   const populateOptions = [{ path: 'my_products' }];
@@ -34,6 +46,12 @@ const readCart = async (req, res, next) => {
   });
 };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const emptyCart = async (req, res, next) => {
   const { user } = req;
 
@@ -46,6 +64,12 @@ const emptyCart = async (req, res, next) => {
   });
 };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const removeProduct = async (req, res, next) => {
   const { user, body: filter } = req; 
 

@@ -1,3 +1,10 @@
+// TODO: name of function must be clear, right now it's aggregateProducts which is misleading.
+/**
+ * 
+ * @param {*} cart 
+ * @param {*} newProduct 
+ * @returns 
+ */
 const aggregateProducts = (cart, newProduct) => {
   const addedProducts = cart.products;
   let flag = 0;
@@ -22,6 +29,13 @@ const aggregateProducts = (cart, newProduct) => {
   return cart;
 };
 
+// TODO: Rename this function.
+/**
+ * 
+ * @param {*} cart 
+ * @param {*} filter 
+ * @returns 
+ */
 const aggregateCart = (cart, filter) => {
   let allProducts = cart.products;
 
