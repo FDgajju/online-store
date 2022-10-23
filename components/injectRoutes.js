@@ -5,7 +5,7 @@ const shopRouter = require('./shop/router');
 const authRouter = require('./user/auth/router');
 const productRouter = require('./product/router');
 const cartRouter = require('./cart/router');
-
+// it add the all the avaialbe routes.
 const injectRoutes = (app) => {
   app.get('/', (req, res, next) => {
     res.status(200).send({ status: 'success', message: 'Working 👍️' });
